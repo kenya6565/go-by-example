@@ -19,10 +19,16 @@ type response2 struct {
 func main() {
 
     bolB, _ := json.Marshal(true)
-    fmt.Println(string(bolB))
+	var data bool
+	err := json.Unmarshal(bolB, &data)
+	if err != nil {
+		fmt.Println(err)
+	}
+    fmt.Println(data)
 
     intB, _ := json.Marshal(1)
-    fmt.Println(string(intB))
+	n := string(intB)
+    fmt.Println(n)
 
     fltB, _ := json.Marshal(2.34)
     fmt.Println(string(fltB))
@@ -49,11 +55,16 @@ func main() {
         Fruits: []string{"apple", "peach", "pear"}}
     res2B, _ := json.Marshal(res2D)
     fmt.Println(string(res2B))
+	
+	// stringとbyteは相互変換可能
+	bytStr := `{"num":6.13,"strs":["a","b"]}`
+	// 自動でbyteに変換
+    byt := []byte(bytStr)
 
-    byt := []byte(`{"num":6.13,"strs":["a","b"]}`)
 
     var dat map[string]interface{}
-
+	
+	// メソッドで変数の値を変更するのでポインタでなければならない
     if err := json.Unmarshal(byt, &dat); err != nil {
         panic(err)
     }
@@ -67,10 +78,15 @@ func main() {
     fmt.Println(str1)
 
     str := `{"page": 1, "fruits": ["apple", "peach"]}`
+	// Goの ０値
+	// デフォルト初期値
     res := response2{}
+	fmt.Println(res)
     json.Unmarshal([]byte(str), &res)
     fmt.Println(res)
     fmt.Println(res.Fruits[0])
+	var aa []int 
+	fmt.Println(aa)
 
     enc := json.NewEncoder(os.Stdout)
     d := map[string]int{"apple": 5, "lettuce": 7}
