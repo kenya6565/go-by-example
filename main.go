@@ -6,5 +6,5 @@ package main
 
 func main() {
     pointer_main()
-    json_main()
+    // json_main()
 }
