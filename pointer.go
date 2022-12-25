@@ -23,6 +23,27 @@ func sliceptr(sptr []string) []string {
 	
 }
 
+func sliceNonPointer(slc []string)  {
+	fmt.Println(slc)
+
+	slc[0] = "hello"
+	fmt.Println(slc)
+
+
+	// return slc
+
+}
+
+func convertString(s string) {
+	s = "change"
+
+}
+
+func convertPointerString(s *string) {
+	*s = "change"
+
+}
+
 func pointer_main() {
     i := 1
     fmt.Println("initial:", i)
@@ -39,9 +60,23 @@ func pointer_main() {
 		// pointer: 0xc0000180d0
 
 		s := []string{"pointer1", "pointer2", "pointer3"}
-		var val []string
-		val = sliceptr(s)
+		str := "hoge"
+		convertString(str)
+		fmt.Println(str)
+		convertPointerString(&str)
+		fmt.Println(str)
+    // sliceptr(s)
 
-		fmt.Println(val)
+		var s2 = s
+		s2[0] ="fuga"
+    fmt.Println(s2)
+		// var nonPointer []string
+		sliceNonPointer(s)
+		// fmt.Println(nonPointer)
+		fmt.Println(s)
+		// var val []string
+		// val = sliceptr(s)
+
+		// fmt.Println(val)
 
 }
