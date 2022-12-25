@@ -5,7 +5,8 @@ package main
 // "os"
 
 func main() {
-    // pointer_main()
-    // json_main()
-    struct_main()
+	// pointer_main()
+	// json_main()
+	// struct_main()
+	range_main()
 }
