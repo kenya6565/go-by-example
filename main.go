@@ -7,8 +7,8 @@ package main
 func main() {
 	// pointer_main()
 	// json_main()
-	// struct_main()
+	struct_main()
 	// range_main()
     // http_server_main()
-    context_main()
+    // context_main()
 }

@@ -12,15 +12,23 @@ type person2 struct {
 	age  int
 }
 
+type User struct {
+	ID   string
+	Name string
+}
+
 // Todo構造体を定義する
 type Todo struct {
 	ID   string
 	Text string
 	Done bool
+	User User
 }
 
 // Todo構造体のポインタ型を定義する
 type TodoPtr []*Todo
+
+type TodoWithoutPtr []Todo
 
 // 既存の型に新しい名前をつけているのでtypeを使用
 // person2のポインタが入ったスライス
@@ -75,6 +83,10 @@ func (t TodoPtr) SetDone(done bool) {
 	}
 }
 
+func (t TodoWithoutPtr) fixUser(s string) {
+	t[0].User.Name = s
+}
+
 func struct_main() {
 	// Todoの一覧を作成する
 	//TodoPtrはTodo構造体のポインタ型なので中身もポインタでなければならない。
@@ -85,6 +97,16 @@ func struct_main() {
 		&Todo{ID: "3", Text: "運動する", Done: false},
 	}
 
+	user1 := User{ID: "1", Name: "Conar"}
+
+	newTodo := TodoWithoutPtr{Todo{ID: "1", Text: "買い物をする", Done: false, User: user1},
+		Todo{ID: "2", Text: "宿題をする", Done: false, User: user1},
+		Todo{ID: "3", Text: "運動する", Done: false, User: user1}}
+	fmt.Println(newTodo)
+	newTodo.fixUser("Sara")
+
+	fmt.Println(newTodo)
+
 	// 全てのTodoのDoneフィールドの値をtrueにする
 	todos.SetDone(true)
 	// {Bob 20}
@@ -94,45 +116,45 @@ func struct_main() {
 	// fmt.Println(&person{name: "Ann", age: 40})
 
 	//person2のポインタであってname, ageのポインタではないのでポインタは1つしかない
-	personPtr := person3{&person2{name: "Bob", age: 40}}
+	// personPtr := person3{&person2{name: "Bob", age: 40}}
 
-	personPtr.fixAge(30)
+	// personPtr.fixAge(30)
 
-	// [0xc000010030]
-	fmt.Println(&personPtr)
+	// // [0xc000010030]
+	// fmt.Println(&personPtr)
 
-	// // &{Bob 100}
-	// renamePerson(personPtr)
+	// // // &{Bob 100}
+	// // renamePerson(personPtr)
 
-	// // {Bob 100}
-	// fmt.Println(*personPtr[0])
+	// // // {Bob 100}
+	// // fmt.Println(*personPtr[0])
 
-	personWithoutPtr := person4{person2{name: "Joy", age: 55}}
+	// personWithoutPtr := person4{person2{name: "Joy", age: 55}}
 
-	renamePersonWithoutPtr(personWithoutPtr)
+	// renamePersonWithoutPtr(personWithoutPtr)
 
-	fmt.Println(personWithoutPtr)
+	// fmt.Println(personWithoutPtr)
 
-	peronSingle := person5{name: "Bob", age: 3}
-	fmt.Println(peronSingle)
-	var val person5
-	val = renamePersonSingle(peronSingle)
+	// peronSingle := person5{name: "Bob", age: 3}
+	// fmt.Println(peronSingle)
+	// var val person5
+	// val = renamePersonSingle(peronSingle)
 
-	fmt.Println(val)
+	// fmt.Println(val)
 
-	// fmt.Println(&person2{name: "Ann", age: 40})
+	// // fmt.Println(&person2{name: "Ann", age: 40})
 
-	person1 := &person{name: "Ann", age: 40}
-	fmt.Println(person1)
+	// person1 := &person{name: "Ann", age: 40}
+	// fmt.Println(person1)
 
-	fmt.Println(newPerson("Jon"))
+	// fmt.Println(newPerson("Jon"))
 
-	s := person{name: "Sean", age: 50}
-	fmt.Println(s.name)
+	// s := person{name: "Sean", age: 50}
+	// fmt.Println(s.name)
 
-	sp := &s
-	fmt.Println(sp.age)
+	// sp := &s
+	// fmt.Println(sp.age)
 
-	sp.age = 51
-	fmt.Println(sp.age)
+	// sp.age = 51
+	// fmt.Println(sp.age)
 }
