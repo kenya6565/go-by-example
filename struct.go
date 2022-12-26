@@ -28,6 +28,11 @@ type Todo struct {
 // Todo構造体のポインタ型を定義する
 type TodoPtr []*Todo
 
+type Todo2 struct {
+	Todo *TodoPtr
+	User *User
+}
+
 type TodoWithoutPtr []Todo
 
 // 既存の型に新しい名前をつけているのでtypeを使用
@@ -87,6 +92,12 @@ func (t TodoWithoutPtr) fixUser(s string) {
 	t[0].User.Name = s
 }
 
+func (t Todo2) fixTodoUser(name string, text string) {
+	t.User.Name = name
+	(*t.Todo)[0].Text = text
+
+}
+
 func struct_main() {
 	// Todoの一覧を作成する
 	//TodoPtrはTodo構造体のポインタ型なので中身もポインタでなければならない。
@@ -98,26 +109,32 @@ func struct_main() {
 	}
 
 	user1 := User{ID: "1", Name: "Conar"}
-	
-	var myTodo []Todo
 
+	todoUser := Todo2{&todos, &user1}
 
-	newTodo := TodoWithoutPtr{Todo{ID: "1", Text: "買い物をする", Done: false, User: user1},
-		Todo{ID: "2", Text: "宿題をする", Done: false, User: user1},
-		Todo{ID: "3", Text: "運動する", Done: false, User: user1}}
+	fmt.Println((*todoUser.Todo)[0])
 
-	fmt.Println(newTodo)
-	newTodo.fixUser("Sara")
+	todoUser.fixTodoUser("Pere", "散歩する")
 
-	fmt.Println(newTodo)
-	myTodo = append(myTodo, newTodo...)
-	fmt.Println(myTodo)
+	fmt.Println(todoUser)
 
 
 
+	// var myTodo []Todo
 
-	// 全てのTodoのDoneフィールドの値をtrueにする
-	todos.SetDone(true)
+	// newTodo := TodoWithoutPtr{Todo{ID: "1", Text: "買い物をする", Done: false, User: user1},
+	// 	Todo{ID: "2", Text: "宿題をする", Done: false, User: user1},
+	// 	Todo{ID: "3", Text: "運動する", Done: false, User: user1}}
+
+	// fmt.Println(newTodo)
+	// newTodo.fixUser("Sara")
+
+	// fmt.Println(newTodo)
+	// myTodo = append(myTodo, newTodo...)
+	// fmt.Println(myTodo)
+
+	// // 全てのTodoのDoneフィールドの値をtrueにする
+	// todos.SetDone(true)
 	// {Bob 20}
 	// fmt.Println(person{"Bob", 20})
 
