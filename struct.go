@@ -98,14 +98,23 @@ func struct_main() {
 	}
 
 	user1 := User{ID: "1", Name: "Conar"}
+	
+	var myTodo []Todo
+
 
 	newTodo := TodoWithoutPtr{Todo{ID: "1", Text: "買い物をする", Done: false, User: user1},
 		Todo{ID: "2", Text: "宿題をする", Done: false, User: user1},
 		Todo{ID: "3", Text: "運動する", Done: false, User: user1}}
+
 	fmt.Println(newTodo)
 	newTodo.fixUser("Sara")
 
 	fmt.Println(newTodo)
+	myTodo = append(myTodo, newTodo...)
+	fmt.Println(myTodo)
+
+
+
 
 	// 全てのTodoのDoneフィールドの値をtrueにする
 	todos.SetDone(true)
