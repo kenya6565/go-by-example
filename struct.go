@@ -63,6 +63,10 @@ func renamePersonSingle(p person5) person5 {
 
 }
 
+func (p person3) fixAge(age int) {
+	p[0].age = age
+}
+
 // TodoPtr型に対するDoneフィールドの値を変更するメソッド
 func (t TodoPtr) SetDone(done bool) {
 	for _, todo := range t {
@@ -91,6 +95,8 @@ func struct_main() {
 
 	//person2のポインタであってname, ageのポインタではないのでポインタは1つしかない
 	personPtr := person3{&person2{name: "Bob", age: 40}}
+
+	personPtr.fixAge(30)
 
 	// [0xc000010030]
 	fmt.Println(&personPtr)
