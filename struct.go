@@ -98,6 +98,11 @@ func (t Todo2) fixTodoUser(name string, text string) {
 
 }
 
+func fixTodoUserWithPtr(t *Todo) (){
+	var todo []*Todo
+
+}
+
 func struct_main() {
 	// Todoの一覧を作成する
 	//TodoPtrはTodo構造体のポインタ型なので中身もポインタでなければならない。
@@ -118,13 +123,15 @@ func struct_main() {
 
 	fmt.Println(todoUser)
 
-
-
 	// var myTodo []Todo
 
 	// newTodo := TodoWithoutPtr{Todo{ID: "1", Text: "買い物をする", Done: false, User: user1},
 	// 	Todo{ID: "2", Text: "宿題をする", Done: false, User: user1},
 	// 	Todo{ID: "3", Text: "運動する", Done: false, User: user1}}
+
+	newTodoWithPtr := &Todo{ID: "1", Text: "買い物をする", Done: false}}
+
+	fixTodoUserWithPtr(newTodoWithPtr)
 
 	// fmt.Println(newTodo)
 	// newTodo.fixUser("Sara")
