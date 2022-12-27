@@ -98,8 +98,13 @@ func (t Todo2) fixTodoUser(name string, text string) {
 
 }
 
-func fixTodoUserWithPtr(t *Todo) (){
-	var todo []*Todo
+func fixTodoUserWithPtr(t *Todo) ([]*Todo){
+	
+	fmt.Println(*t)
+	todo := []*Todo{&Todo{ID: "1", Text: "Goの理解力を上げる", Done: false}}
+	fmt.Println(todo)
+	todo = append(todo, t)
+	return todo
 
 }
 
@@ -107,21 +112,21 @@ func struct_main() {
 	// Todoの一覧を作成する
 	//TodoPtrはTodo構造体のポインタ型なので中身もポインタでなければならない。
 	//だから&をつけてポインタにしている
-	todos := TodoPtr{
-		&Todo{ID: "1", Text: "買い物をする", Done: false},
-		&Todo{ID: "2", Text: "宿題をする", Done: false},
-		&Todo{ID: "3", Text: "運動する", Done: false},
-	}
+	// todos := TodoPtr{
+	// 	&Todo{ID: "1", Text: "買い物をする", Done: false},
+	// 	&Todo{ID: "2", Text: "宿題をする", Done: false},
+	// 	&Todo{ID: "3", Text: "運動する", Done: false},
+	// }
 
-	user1 := User{ID: "1", Name: "Conar"}
+	// user1 := User{ID: "1", Name: "Conar"}
 
-	todoUser := Todo2{&todos, &user1}
+	// todoUser := Todo2{&todos, &user1}
 
-	fmt.Println((*todoUser.Todo)[0])
+	// fmt.Println((*todoUser.Todo)[0])
 
-	todoUser.fixTodoUser("Pere", "散歩する")
+	// todoUser.fixTodoUser("Pere", "散歩する")
 
-	fmt.Println(todoUser)
+	// fmt.Println(todoUser)
 
 	// var myTodo []Todo
 
@@ -129,9 +134,10 @@ func struct_main() {
 	// 	Todo{ID: "2", Text: "宿題をする", Done: false, User: user1},
 	// 	Todo{ID: "3", Text: "運動する", Done: false, User: user1}}
 
-	newTodoWithPtr := &Todo{ID: "1", Text: "買い物をする", Done: false}}
-
-	fixTodoUserWithPtr(newTodoWithPtr)
+	newTodoWithPtr := &Todo{ID: "1", Text: "買い物をする", Done: false}
+	fmt.Println(newTodoWithPtr)
+	newTodo := fixTodoUserWithPtr(newTodoWithPtr)
+	fmt.Println((newTodo)[0])
 
 	// fmt.Println(newTodo)
 	// newTodo.fixUser("Sara")
