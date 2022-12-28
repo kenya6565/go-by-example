@@ -98,8 +98,8 @@ func (t Todo2) fixTodoUser(name string, text string) {
 
 }
 
-func fixTodoUserWithPtr(t *Todo) ([]*Todo){
-	
+func fixTodoUserWithPtr(t *Todo) []*Todo {
+
 	fmt.Println(*t)
 	todo := []*Todo{&Todo{ID: "1", Text: "Goの理解力を上げる", Done: false}}
 	fmt.Println(todo)
