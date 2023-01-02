@@ -17,6 +17,12 @@ type User struct {
 	Name string
 }
 
+type T struct {
+	User
+}
+
+type Users []*User
+
 // Todo構造体を定義する
 type Todo struct {
 	ID   string
@@ -77,7 +83,7 @@ func renamePersonSingle(p person5) person5 {
 }
 
 func (p person3) fixAge(age int) {
-	p[0].age = age
+	(*p[0]).age = age
 }
 
 // TodoPtr型に対するDoneフィールドの値を変更するメソッド
@@ -108,7 +114,52 @@ func fixTodoUserWithPtr(t *Todo) []*Todo {
 
 }
 
+func (u *User) SetName(name string) {
+	u.Name = name
+}
+
+func NewUser(id string, name string) *User {
+	return &User{ID: id, Name: name}
+}
+
 func struct_main() {
+
+	// m := map[int]User {
+	// 	1: {ID: "1", Name: "User1"},
+  //   2: {ID: "2", Name: "User2"},
+	// }
+	// fmt.Println(m[1].ID)
+
+	// m3 := map[User]string {
+	// 	*NewUser("1", "user1") : "Tokyo",
+	// }
+	m3 := make(map[int]User)
+	m3[1] = User{Name: "User1", ID: "1"}
+	
+
+
+	// m2 := map[User]string {
+	// 	{ID: "1", Name: "User1"} : "Tokyo",
+	// 	{ID: "2", Name: "User12"} : "LA",
+	// }
+	fmt.Println(m3)
+
+
+	// user1 := NewUser("1", "user1")
+	// fmt.Println(*user1)
+	// user1 := User{Name: "user1"}
+	// user2 := User{Name: "user2"}
+	// user3 := User{Name: "user3"}
+	// user4 := User{Name: "user4"}
+	// users := Users{&user1, &user2, &user3, &user4}
+	// fmt.Println(users)
+	// user2 := &User{Name: "user1"}
+	// user1.SetName("A")
+	// user2.SetName("B")
+
+	// t := T{User{Name: "user1", ID: "1"}}
+	// t.User.SetName("変わったよ")
+	// fmt.Println(t.Name)
 	// Todoの一覧を作成する
 	//TodoPtrはTodo構造体のポインタ型なので中身もポインタでなければならない。
 	//だから&をつけてポインタにしている
@@ -155,12 +206,12 @@ func struct_main() {
 	// fmt.Println(&person{name: "Ann", age: 40})
 
 	//person2のポインタであってname, ageのポインタではないのでポインタは1つしかない
-	// personPtr := person3{&person2{name: "Bob", age: 40}}
+	personPtr := person3{&person2{name: "Bob", age: 40}}
 
-	// personPtr.fixAge(30)
+	personPtr.fixAge(30)
 
 	// // [0xc000010030]
-	// fmt.Println(&personPtr)
+	fmt.Println(personPtr[0])
 
 	// // // &{Bob 100}
 	// // renamePerson(personPtr)
