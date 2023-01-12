@@ -40,14 +40,42 @@ func RaiseError() error {
 	}
 }
 
+type Animal interface {
+	Speak() string
+}
+
+type Dog struct {
+}
+
+func (d Dog) Speak() string {
+	return "Woof!"
+}
+
+type Cat struct {
+}
+
+func (c Cat) Speak() string {
+	return "Meow!"
+}
+
+func getAnimal() []Animal {
+	animals := []Animal{Dog{}, Cat{}}
+	return animals
+}
+
 func interface_main() {
 	vs := []Stringfy{
 		&Person{Name: "John", Age: 32},
-	  &Car{Number: "124-22", Model: "AB-1234"},
+		&Car{Number: "124-22", Model: "AB-1234"},
 	}
 
 	for _, v := range vs {
 		fmt.Println(v.ToString())
+	}
+
+	animals := getAnimal()
+	for _, animal := range animals {
+		fmt.Println(animal.Speak())
 	}
 
 	// err := RaiseError()
