@@ -45,6 +45,7 @@ type Animal interface {
 }
 
 type Dog struct {
+	name string
 }
 
 func (d Dog) Speak() string {
@@ -59,24 +60,26 @@ func (c Cat) Speak() string {
 }
 
 func getAnimal() []Animal {
-	animals := []Animal{Dog{}, Cat{}}
+	animals := []Animal{Dog{name: "jiggy"}, Cat{}}
 	return animals
 }
 
 func interface_main() {
 	vs := []Stringfy{
-		&Person{Name: "John", Age: 32},
 		&Car{Number: "124-22", Model: "AB-1234"},
 	}
 
-	for _, v := range vs {
-		fmt.Println(v.ToString())
-	}
+	fmt.Println(vs[0])
 
-	animals := getAnimal()
-	for _, animal := range animals {
-		fmt.Println(animal.Speak())
-	}
+	// for _, v := range vs {
+	// 	fmt.Println(v.ToString())
+	// }
+
+	// animals := getAnimal()
+	// fmt.Println(animals)
+	// for _, animal := range animals {
+	// 	fmt.Println(animal.Speak())
+	// }
 
 	// err := RaiseError()
 	// fmt.Println(err.Error())
