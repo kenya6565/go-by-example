@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Stringfy interface {
 	ToString() string
@@ -64,12 +66,38 @@ func getAnimal() []Animal {
 	return animals
 }
 
-func interface_main() {
-	vs := []Stringfy{
-		&Car{Number: "124-22", Model: "AB-1234"},
-	}
+type slack struct {
+	url    string
+	client Doer
+	Text   string `json:"text"`
+}
 
-	fmt.Println(vs[0])
+type DoerImpl struct{}
+
+type Doer interface {
+	testClient(message string) string
+}
+
+func (d *DoerImpl)testClient(req string) string {
+	return req
+}
+
+func (s *slack) Inform(message string) string {
+
+	result := s.client.testClient(message)
+
+	return result
+}
+
+func interface_main() {
+	s := &slack{url: "url", Text: "text", client: &DoerImpl{}}
+	s.Inform("text")
+	fmt.Println("終了")
+	// vs := []Stringfy{
+	// 	&Car{Number: "124-22", Model: "AB-1234"},
+	// }
+
+	// fmt.Println(vs[0])
 
 	// for _, v := range vs {
 	// 	fmt.Println(v.ToString())
